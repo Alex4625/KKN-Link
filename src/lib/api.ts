@@ -161,6 +161,7 @@ function setMockStorage<T>(key: string, val: T): void {
 async function request<T>(url: string, options?: RequestInit): Promise<ApiResponse<T>> {
   try {
     const res = await fetch(url, {
+      credentials: 'include',
       ...options,
       headers: {
         'Content-Type': 'application/json',
@@ -172,14 +173,13 @@ async function request<T>(url: string, options?: RequestInit): Promise<ApiRespon
       return (await res.json()) as ApiResponse<T>;
     }
 
-    // Jika response status 401/403/400 terdefinisi dari backend nyata
-    if (res.status === 401 || res.status === 400 || res.status === 403) {
-      const json = await res.json() as ApiResponse<T>;
-      throw new ApiError(json.message || 'Terjadi kesalahan', res.status);
-    }
+    // Tangkap pesan error dari server untuk SEMUA status kode non-2xx (400, 401, 403, 404, 409, 422, 500, dll)
+    const json = (await res.json().catch(() => ({}))) as ApiResponse<T>;
+    const errorMessage = json?.message || `Permintaan gagal (HTTP ${res.status})`;
+    throw new ApiError(errorMessage, res.status);
   } catch (err) {
     if (err instanceof ApiError) throw err;
-    // Jika koneksi gagal (504, 502, network offline, atau dev backend proxy belum jalan)
+    // Jika koneksi gagal (504, 502, network offline murni)
   }
 
   // Fallback Dev Mock Mode

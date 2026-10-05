@@ -19,7 +19,13 @@ export type AppEnv = {
 const app = new Hono<AppEnv>().basePath('/api');
 
 // Middleware global
-app.use('*', cors());
+app.use('*', cors({
+  origin: (origin) => origin || '*',
+  credentials: true,
+  allowMethods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+  allowHeaders: ['Content-Type', 'Authorization', 'Cookie'],
+  exposeHeaders: ['Set-Cookie'],
+}));
 app.use('*', securityHeaders);
 app.use('*', authMiddleware);
 

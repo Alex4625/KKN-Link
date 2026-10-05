@@ -36,9 +36,12 @@ categoriesRoute.post('/', async (c) => {
   }
 
   const id = crypto.randomUUID();
+  const now = Math.floor(Date.now() / 1000);
   await db.insert(categories).values({
     id,
-    name: parsed.data.name,
+    name: parsed.data.name.trim(),
+    sortOrder: 0,
+    createdAt: now,
   });
 
   const created = await db.select().from(categories).where(eq(categories.id, id));

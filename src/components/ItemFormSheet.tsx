@@ -1,6 +1,8 @@
 // src/components/ItemFormSheet.tsx — Formulir Tambah/Ubah Item (Clean Modal Dialog)
 import { useState, useEffect } from 'react';
-import type { Category, ItemBase } from '../lib/api';
+import { useQueryClient } from '@tanstack/react-query';
+import { categoriesApi, ApiError, type Category, type ItemBase } from '../lib/api';
+import { useToast } from './Toast';
 
 export type ItemType = 'link' | 'note' | 'secret';
 
@@ -52,6 +54,40 @@ export default function ItemFormSheet({
     password: '',
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const queryClient = useQueryClient();
+  const { showToast } = useToast();
+  const [showQuickCat, setShowQuickCat] = useState(false);
+  const [quickCatName, setQuickCatName] = useState('');
+  const [quickCatLoading, setQuickCatLoading] = useState(false);
+
+  const handleQuickCreateCategory = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    const trimmed = quickCatName.trim();
+    if (!trimmed) {
+      showToast('Nama kategori wajib diisi', 'error');
+      return;
+    }
+    if (trimmed.length > 40) {
+      showToast('Nama kategori maksimal 40 karakter', 'error');
+      return;
+    }
+    setQuickCatLoading(true);
+    try {
+      const res = await categoriesApi.create(trimmed);
+      await queryClient.invalidateQueries({ queryKey: ['categories'] });
+      if (res.data?.id) {
+        setForm((f) => ({ ...f, categoryId: res.data.id }));
+      }
+      setQuickCatName('');
+      setShowQuickCat(false);
+      showToast(`Kategori "${trimmed}" berhasil dibuat`);
+    } catch (err: unknown) {
+      const msg = err instanceof ApiError ? err.message : 'Gagal membuat kategori';
+      showToast(msg, 'error');
+    } finally {
+      setQuickCatLoading(false);
+    }
+  };
 
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
@@ -216,14 +252,53 @@ export default function ItemFormSheet({
               <label className="block text-xs font-bold text-surface-100">
                 Kategori
               </label>
-              <a
-                href="/kategori"
-                className="text-[11px] text-sky-300 hover:text-sky-100 font-medium transition-colors flex items-center gap-1"
-                title="Buka halaman kelola kategori"
-              >
-                + Kelola / Tambah Kategori
-              </a>
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => setShowQuickCat(!showQuickCat)}
+                  className="text-[11px] text-emerald-400 hover:text-emerald-300 font-semibold transition-colors flex items-center gap-1"
+                  title="Buat kategori baru langsung"
+                >
+                  {showQuickCat ? '✕ Batal' : '+ Kategori Baru'}
+                </button>
+                <a
+                  href="/kategori"
+                  className="text-[11px] text-sky-300 hover:text-sky-100 font-medium transition-colors"
+                  title="Buka halaman kelola semua kategori"
+                >
+                  Kelola
+                </a>
+              </div>
             </div>
+
+            {showQuickCat && (
+              <div className="flex gap-2 mb-2 p-2 rounded bg-surface-950 border border-emerald-500/40 animate-sheet">
+                <input
+                  type="text"
+                  value={quickCatName}
+                  onChange={(e) => setQuickCatName(e.target.value)}
+                  placeholder="Ketik nama kategori baru..."
+                  className="input-field text-xs py-1.5 flex-1"
+                  maxLength={40}
+                  autoFocus
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      e.preventDefault();
+                      handleQuickCreateCategory(e as unknown as React.MouseEvent);
+                    }
+                  }}
+                />
+                <button
+                  type="button"
+                  onClick={handleQuickCreateCategory}
+                  disabled={quickCatLoading || !quickCatName.trim()}
+                  className="btn-primary text-xs py-1.5 px-3 whitespace-nowrap disabled:opacity-50"
+                >
+                  {quickCatLoading ? 'Menyimpan...' : 'Simpan'}
+                </button>
+              </div>
+            )}
+
             <select
               value={form.categoryId || ''}
               onChange={(e) => setForm((f) => ({ ...f, categoryId: e.target.value || null }))}

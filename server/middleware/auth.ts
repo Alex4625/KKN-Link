@@ -8,6 +8,11 @@ const COOKIE_NAME = 'kkn_session';
 
 /** Middleware: cek cookie sesi bertanda tangan. Lewati /api/auth/login. */
 export async function authMiddleware(c: Context<AppEnv>, next: Next) {
+  // Lewati preflight OPTIONS CORS
+  if (c.req.method === 'OPTIONS') {
+    return next();
+  }
+
   const path = new URL(c.req.url).pathname;
 
   // Lewati endpoint login
