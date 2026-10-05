@@ -212,9 +212,18 @@ export default function ItemFormSheet({
 
           {/* Category */}
           <div>
-            <label className="block text-xs font-semibold text-surface-300 mb-1.5">
-              Kategori
-            </label>
+            <div className="flex items-center justify-between mb-1.5">
+              <label className="block text-xs font-semibold text-surface-300">
+                Kategori
+              </label>
+              <a
+                href="/kategori"
+                className="text-[11px] text-sky-400 hover:text-sky-300 transition-colors flex items-center gap-1"
+                title="Buka halaman kelola kategori"
+              >
+                + Kelola / Tambah Kategori
+              </a>
+            </div>
             <select
               value={form.categoryId || ''}
               onChange={(e) => setForm((f) => ({ ...f, categoryId: e.target.value || null }))}

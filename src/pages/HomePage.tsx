@@ -287,14 +287,13 @@ export default function HomePage() {
             <SearchInput value={search} onChange={setSearch} />
           </div>
 
-          {cats.length > 0 && (
-            <CategoryChips
-              categories={cats}
-              selected={selectedCategory}
-              onSelect={setSelectedCategory}
-              counts={categoryCounts}
-            />
-          )}
+          <CategoryChips
+            categories={cats}
+            selected={selectedCategory}
+            onSelect={setSelectedCategory}
+            counts={categoryCounts}
+            onManage={() => navigate('/kategori')}
+          />
         </div>
 
         {/* Loading State */}
