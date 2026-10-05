@@ -1,0 +1,7 @@
+# Contoh secret untuk pengembangan lokal
+# Salin file ini menjadi .dev.vars (jangan commit .dev.vars)
+# Buat nilai secret: openssl rand -base64 32
+
+ACCESS_CODE=kode-akses-kkn-2026
+SESSION_SECRET=GANTI_DENGAN_HASIL_openssl_rand_base64_32
+SECRET_ENC_KEY=GANTI_DENGAN_HASIL_openssl_rand_base64_32

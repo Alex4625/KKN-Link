@@ -1,0 +1,10 @@
+# Cloudflare Pages project configuration
+name = "kkn-hub"
+pages_build_output_dir = "dist"
+compatibility_date = "2024-09-23"
+compatibility_flags = ["nodejs_compat"]
+
+[[d1_databases]]
+binding = "DB"
+database_name = "kkn-hub-db"
+database_id = "REPLACE_WITH_YOUR_D1_DATABASE_ID"
