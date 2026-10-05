@@ -1,5 +1,5 @@
 // src/pages/CategoriesPage.tsx — Pengaturan Kategori Berkas KKN (Clean & Functional)
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { categoriesApi, itemsApi, ApiError, type Category } from '../lib/api';
@@ -10,6 +10,7 @@ export default function CategoriesPage() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const { showToast } = useToast();
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const [newCatName, setNewCatName] = useState('');
   const [editingCat, setEditingCat] = useState<Category | null>(null);
@@ -39,7 +40,15 @@ export default function CategoriesPage() {
 
   const createMutation = useMutation({
     mutationFn: (name: string) => categoriesApi.create(name),
-    onSuccess: () => {
+    onSuccess: (res: any) => {
+      if (res?.data) {
+        queryClient.setQueryData(['categories'], (old: any) => {
+          if (!old) return { success: true, data: [res.data] };
+          const list = old.data || [];
+          if (list.some((c: Category) => c.id === res.data.id)) return old;
+          return { ...old, data: [...list, res.data] };
+        });
+      }
       queryClient.invalidateQueries({ queryKey: ['categories'] });
       setNewCatName('');
       setError('');
@@ -49,6 +58,7 @@ export default function CategoriesPage() {
       const msg = err instanceof ApiError ? err.message : 'Gagal menambahkan kategori';
       setError(msg);
       showToast(msg, 'error');
+      inputRef.current?.focus();
     },
   });
 
@@ -83,11 +93,13 @@ export default function CategoriesPage() {
     setError('');
     const trimmed = newCatName.trim();
     if (!trimmed) {
-      setError('Nama kategori wajib diisi');
+      setError('Ketik nama kategori yang ingin ditambahkan terlebih dahulu.');
+      inputRef.current?.focus();
       return;
     }
     if (trimmed.length > 40) {
-      setError('Nama kategori maksimal 40 karakter');
+      setError('Nama kategori maksimal 40 karakter.');
+      inputRef.current?.focus();
       return;
     }
     createMutation.mutate(trimmed);
@@ -117,7 +129,7 @@ export default function CategoriesPage() {
     <div className="min-h-dvh pb-16 pt-3 sm:pt-6">
       <div className="max-w-3xl mx-auto px-4 sm:px-6">
         {/* Header */}
-        <header className="py-4 border-b border-surface-800 mb-6 flex items-center justify-between">
+        <header className="py-4 border-b border-surface-700 mb-6 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <button
               onClick={() => navigate('/')}
@@ -140,23 +152,44 @@ export default function CategoriesPage() {
             </div>
           </div>
 
-          <span className="text-xs font-mono text-surface-200 px-2 py-1 rounded bg-surface-800 border border-surface-700 hidden sm:inline">
-            {categories.length} Kategori
-          </span>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => {
+                queryClient.invalidateQueries({ queryKey: ['categories'] });
+                showToast('Daftar kategori dimuat ulang');
+              }}
+              className="btn-ghost text-xs text-surface-300 hover:text-white"
+              title="Muat Ulang Daftar Kategori"
+            >
+              <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
+              </svg>
+              <span>Refresh</span>
+            </button>
+            <span className="text-xs font-mono text-surface-200 px-2 py-1 rounded bg-surface-800 border border-surface-700 hidden sm:inline">
+              {categories.length} Kategori
+            </span>
+          </div>
         </header>
 
         {/* Form Tambah Kategori */}
-        <div className="kkn-panel p-4 mb-6">
+        <div className="kkn-panel p-5 mb-6">
           <form onSubmit={handleAddSubmit}>
-            <label
-              htmlFor="cat-name-input"
-              className="block text-xs font-bold text-surface-200 mb-2"
-            >
-              Tambah Kategori Baru
-            </label>
+            <div className="flex items-center justify-between mb-2">
+              <label
+                htmlFor="cat-name-input"
+                className="block text-xs font-bold text-surface-100"
+              >
+                Tambah Kategori Baru
+              </label>
+              <span className="text-[11px] text-surface-400">
+                {newCatName.length}/40 karakter
+              </span>
+            </div>
 
             <div className="flex flex-col sm:flex-row gap-2">
               <input
+                ref={inputRef}
                 id="cat-name-input"
                 type="text"
                 value={newCatName}
@@ -164,21 +197,39 @@ export default function CategoriesPage() {
                   setNewCatName(e.target.value);
                   setError('');
                 }}
-                placeholder="Contoh: Administrasi Desa Adat, Program Kerja, Dokumentasi Budaya"
+                placeholder="Masukkan nama kategori baru (contoh: Posko & Logistik)..."
                 className="input-field flex-1"
                 maxLength={40}
+                autoFocus
               />
 
               <button
                 type="submit"
-                disabled={createMutation.isPending || !newCatName.trim()}
-                className="btn-primary text-xs whitespace-nowrap disabled:opacity-50"
+                disabled={createMutation.isPending}
+                className="btn-primary text-xs whitespace-nowrap px-4 py-2 flex items-center justify-center gap-1.5"
               >
-                {createMutation.isPending ? 'Menambahkan...' : '+ Tambah Kategori'}
+                {createMutation.isPending ? (
+                  <>
+                    <svg className="w-3.5 h-3.5 animate-spin" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
+                    </svg>
+                    <span>Menyimpan...</span>
+                  </>
+                ) : (
+                  <span>+ Tambah Kategori</span>
+                )}
               </button>
             </div>
 
-            {error && <p className="text-rose-400 text-xs mt-2 font-medium">{error}</p>}
+            {error && (
+              <div className="mt-3 p-2.5 rounded bg-rose-950/60 border border-rose-500/50 flex items-center gap-2 text-rose-300 text-xs font-medium animate-sheet">
+                <svg className="w-4 h-4 text-rose-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
+                </svg>
+                <span>{error}</span>
+              </div>
+            )}
           </form>
         </div>
 
