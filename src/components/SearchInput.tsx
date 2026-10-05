@@ -37,7 +37,7 @@ export default function SearchInput({
 
   return (
     <div className="relative w-full">
-      <div className="absolute left-3 top-1/2 -translate-y-1/2 text-surface-400 pointer-events-none flex items-center">
+      <div className="absolute left-3 top-1/2 -translate-y-1/2 text-surface-300 pointer-events-none flex items-center">
         <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
           <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
         </svg>
@@ -60,7 +60,7 @@ export default function SearchInput({
               onChange('');
               inputRef.current?.focus();
             }}
-            className="w-5 h-5 rounded text-surface-400 hover:text-white flex items-center justify-center transition-colors"
+            className="w-5 h-5 rounded text-surface-300 hover:text-white hover:bg-surface-700/60 flex items-center justify-center transition-colors"
             aria-label="Hapus pencarian"
           >
             <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -68,7 +68,7 @@ export default function SearchInput({
             </svg>
           </button>
         ) : (
-          <kbd className="hidden sm:inline-block px-1.5 py-0.5 text-[11px] font-mono text-surface-400 bg-surface-850 border border-surface-800 rounded">
+          <kbd className="hidden sm:inline-block px-1.5 py-0.5 text-[11px] font-mono font-medium text-surface-200 bg-surface-800 border border-surface-700 rounded">
             /
           </kbd>
         )}

@@ -134,13 +134,13 @@ export default function CategoriesPage() {
               <h1 className="text-base font-bold text-surface-50">
                 Kelola Kategori Berkas
               </h1>
-              <p className="text-xs text-surface-400">
+              <p className="text-xs text-surface-300 mt-0.5">
                 Atur klasifikasi tautan dan catatan kegiatan kelompok
               </p>
             </div>
           </div>
 
-          <span className="text-xs font-mono text-surface-400 hidden sm:inline">
+          <span className="text-xs font-mono text-surface-200 px-2 py-1 rounded bg-surface-800 border border-surface-700 hidden sm:inline">
             {categories.length} Kategori
           </span>
         </header>
@@ -150,7 +150,7 @@ export default function CategoriesPage() {
           <form onSubmit={handleAddSubmit}>
             <label
               htmlFor="cat-name-input"
-              className="block text-xs font-semibold text-surface-300 mb-2"
+              className="block text-xs font-bold text-surface-200 mb-2"
             >
               Tambah Kategori Baru
             </label>
@@ -178,17 +178,17 @@ export default function CategoriesPage() {
               </button>
             </div>
 
-            {error && <p className="text-rose-400 text-xs mt-2">{error}</p>}
+            {error && <p className="text-rose-400 text-xs mt-2 font-medium">{error}</p>}
           </form>
         </div>
 
         {/* Daftar Kategori */}
         <div>
-          <div className="flex items-center justify-between pb-2 mb-3 border-b border-surface-800">
-            <h2 className="text-xs font-bold uppercase tracking-wider text-surface-300 font-mono">
+          <div className="flex items-center justify-between pb-2 mb-3 border-b border-surface-700">
+            <h2 className="text-xs font-bold uppercase tracking-wider text-surface-200 font-mono">
               Daftar Kategori Terdaftar
             </h2>
-            <span className="text-[11px] text-surface-500">
+            <span className="text-[11px] text-surface-300">
               Menghapus kategori tidak menghapus isi berkasnya
             </span>
           </div>
@@ -202,13 +202,13 @@ export default function CategoriesPage() {
           )}
 
           {!catsLoading && categories.length === 0 && (
-            <div className="kkn-panel p-8 text-center text-xs text-surface-400">
+            <div className="kkn-panel p-8 text-center text-xs text-surface-300">
               Belum ada kategori yang dibuat. Gunakan form di atas untuk membuat kategori baru.
             </div>
           )}
 
           {!catsLoading && categories.length > 0 && (
-            <div className="divide-y divide-surface-850 kkn-panel overflow-hidden">
+            <div className="divide-y divide-surface-700/80 kkn-panel overflow-hidden">
               {categories.map((cat) => {
                 const isEditing = editingCat?.id === cat.id;
                 const count = itemCountMap.get(cat.id) || 0;
@@ -218,7 +218,7 @@ export default function CategoriesPage() {
                     <form
                       key={cat.id}
                       onSubmit={handleSaveEdit}
-                      className="p-3 flex items-center gap-2 bg-surface-850"
+                      className="p-3 flex items-center gap-2 bg-surface-900"
                     >
                       <input
                         type="text"
@@ -249,29 +249,29 @@ export default function CategoriesPage() {
                 return (
                   <div
                     key={cat.id}
-                    className="p-3.5 flex items-center justify-between gap-3 hover:bg-surface-850/50 transition-colors"
+                    className="p-3.5 flex items-center justify-between gap-3 hover:bg-surface-800/60 transition-colors"
                   >
-                    <div className="min-w-0 flex items-center gap-2">
-                      <span className="text-sm font-medium text-surface-100 truncate">
+                    <div className="min-w-0 flex items-center gap-2.5">
+                      <span className="text-sm font-bold text-surface-50 truncate">
                         {cat.name}
                       </span>
-                      <span className="text-xs font-mono text-surface-500">
-                        ({count} berkas)
+                      <span className="text-xs font-mono text-surface-300 px-1.5 py-0.5 rounded bg-surface-800 border border-surface-700">
+                        {count} berkas
                       </span>
                     </div>
 
-                    <div className="flex items-center gap-1">
+                    <div className="flex items-center gap-2">
                       <button
                         type="button"
                         onClick={() => handleStartEdit(cat)}
-                        className="text-xs text-surface-400 hover:text-white py-1 px-2 rounded hover:bg-surface-800 transition-colors"
+                        className="text-xs font-semibold text-sky-400 hover:text-white py-1 px-2.5 rounded bg-surface-800 hover:bg-sky-600 border border-surface-700 hover:border-sky-500 transition-colors"
                       >
                         Ubah
                       </button>
                       <button
                         type="button"
                         onClick={() => setDeleteTarget(cat)}
-                        className="text-xs text-rose-400 hover:text-rose-200 py-1 px-2 rounded hover:bg-rose-950/40 transition-colors"
+                        className="text-xs font-semibold text-rose-400 hover:text-white py-1 px-2.5 rounded bg-rose-950/40 hover:bg-rose-600 border border-rose-800/40 hover:border-rose-500 transition-colors"
                       >
                         Hapus
                       </button>

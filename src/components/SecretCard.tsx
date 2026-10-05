@@ -94,36 +94,36 @@ export default function SecretCard({ item, onEdit, onTogglePin, onDelete }: Secr
         {/* Kotak Konten Rahasia */}
         <div className="mt-3 pt-2.5 border-t border-surface-850">
           {!revealed ? (
-            <div className="bg-surface-900 border border-surface-800 rounded p-2.5 flex items-center justify-between">
-              <span className="font-mono text-xs text-surface-500 tracking-widest">
+            <div className="bg-surface-950 border border-surface-700 rounded p-2.5 flex items-center justify-between">
+              <span className="font-mono text-sm text-surface-400 tracking-widest pl-1">
                 ••••••••••••••
               </span>
               <button
                 type="button"
                 onClick={handleReveal}
                 disabled={loading}
-                className="text-xs text-surface-200 hover:text-white font-medium px-2.5 py-1 rounded bg-surface-800 hover:bg-surface-700 transition-colors"
+                className="text-xs text-emerald-300 hover:text-white font-bold px-3 py-1.5 rounded bg-emerald-950/60 border border-emerald-500/40 hover:bg-emerald-900/60 transition-colors shadow-xs"
               >
                 {loading ? 'Membuka...' : 'Buka Sandi'}
               </button>
             </div>
           ) : (
-            <div className="space-y-2 bg-surface-900 border border-surface-800 rounded p-3 text-xs">
+            <div className="space-y-2.5 bg-surface-950 border border-surface-700 rounded p-3 text-xs">
               {/* Username */}
               {secretData?.username && (
                 <div className="flex items-center justify-between gap-2">
                   <div className="min-w-0">
-                    <span className="text-[10px] uppercase font-mono text-surface-500 block">Username / Email</span>
-                    <span className="font-mono text-surface-100 truncate block">{secretData.username}</span>
+                    <span className="text-[11px] uppercase font-mono text-surface-300 font-semibold block">Username / Email</span>
+                    <span className="font-mono text-surface-50 font-medium truncate block text-xs mt-0.5">{secretData.username}</span>
                   </div>
                   <button
                     type="button"
                     onClick={() => handleCopy(secretData.username, 'Username', 'user')}
-                    className="text-surface-400 hover:text-white p-1 rounded hover:bg-surface-800"
+                    className="text-surface-300 hover:text-white p-1.5 rounded bg-surface-800 hover:bg-surface-700 border border-surface-700 transition-colors"
                     title="Salin username"
                   >
                     {copiedKey === 'user' ? (
-                      <span className="text-emerald-400 text-[11px]">Tersalin</span>
+                      <span className="text-emerald-400 font-bold text-[11px]">Tersalin!</span>
                     ) : (
                       <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 01-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 011.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 00-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 01-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 00-3.375-3.375h-1.5a1.125 1.125 0 01-1.125-1.125v-1.5a3.375 3.375 0 00-3.375-3.375H9.75" />
@@ -134,33 +134,33 @@ export default function SecretCard({ item, onEdit, onTogglePin, onDelete }: Secr
               )}
 
               {/* Password */}
-              <div className="flex items-center justify-between gap-2 pt-1 border-t border-surface-850">
+              <div className="flex items-center justify-between gap-2 pt-2 border-t border-surface-800">
                 <div className="min-w-0">
-                  <span className="text-[10px] uppercase font-mono text-surface-500 block">Password</span>
-                  <span className="font-mono text-emerald-300 font-semibold truncate block">
+                  <span className="text-[11px] uppercase font-mono text-surface-300 font-semibold block">Password</span>
+                  <span className="font-mono text-emerald-300 font-bold truncate block text-sm mt-0.5">
                     {secretData?.password || '••••••••'}
                   </span>
                 </div>
                 <button
                   type="button"
                   onClick={() => secretData?.password && handleCopy(secretData.password, 'Password', 'pass')}
-                  className="text-surface-400 hover:text-white p-1 rounded hover:bg-surface-800"
+                  className="text-surface-300 hover:text-white p-1.5 rounded bg-surface-800 hover:bg-surface-700 border border-surface-700 transition-colors"
                   title="Salin password"
                 >
                   {copiedKey === 'pass' ? (
-                    <span className="text-emerald-400 text-[11px]">Tersalin</span>
+                    <span className="text-emerald-400 font-bold text-[11px]">Tersalin!</span>
                   ) : (
                     <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 01-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 011.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 00-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 01-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 00-3.375-3.375h-1.5a1.125 1.125 0 01-1.125-1.125v-1.5a3.375 3.375 0 00-3.375-3.375H9.75" />
-                    </svg>
-                  )}
-                </button>
+                      </svg>
+                    )}
+                  </button>
               </div>
 
               {/* Progress timer */}
-              <div className="w-full bg-surface-800 h-1 rounded-full overflow-hidden mt-2">
+              <div className="w-full bg-surface-800 h-1.5 rounded-full overflow-hidden mt-2">
                 <div
-                  className="bg-emerald-500 h-full"
+                  className="bg-emerald-400 h-full"
                   style={{ animation: 'shrinkTimer 30s linear forwards' }}
                 />
               </div>
@@ -171,15 +171,15 @@ export default function SecretCard({ item, onEdit, onTogglePin, onDelete }: Secr
 
       {/* Baris Bawah: Aksi Kunci Kembali (Bila Terbuka) */}
       {revealed && (
-        <div className="pt-2 border-t border-surface-850 flex items-center justify-between text-xs text-surface-400">
-          <span className="text-[11px] text-surface-500">Tutup otomatis dlm 30s</span>
+        <div className="pt-2 border-t border-surface-700/80 flex items-center justify-between text-xs text-surface-300">
+          <span className="text-[11px] text-surface-300 font-medium">Tutup otomatis dlm 30s</span>
           <button
             type="button"
             onClick={() => {
               setRevealed(false);
               setSecretData(null);
             }}
-            className="text-surface-300 hover:text-white py-0.5 px-2 rounded hover:bg-surface-850"
+            className="text-amber-400 hover:text-amber-300 font-bold py-0.5 px-2 rounded hover:bg-surface-800 border border-transparent hover:border-surface-700"
           >
             Kunci Sekarang
           </button>

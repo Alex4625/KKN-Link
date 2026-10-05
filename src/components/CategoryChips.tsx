@@ -13,7 +13,7 @@ export default function CategoryChips({ categories, selected, onSelect, counts, 
   const totalCount = counts ? Array.from(counts.values()).reduce((a, b) => a + b, 0) : undefined;
 
   return (
-    <div className="w-full border-b border-surface-800 pb-2">
+    <div className="w-full border-b border-surface-700 pb-2">
       <div
         className="flex items-center gap-1.5 overflow-x-auto scrollbar-none no-scrollbar py-0.5"
         style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
@@ -25,7 +25,7 @@ export default function CategoryChips({ categories, selected, onSelect, counts, 
         >
           <span>Semua Berkas</span>
           {totalCount !== undefined && (
-            <span className="text-xs font-mono text-surface-400 opacity-80">
+            <span className={`text-xs font-mono ${selected === null ? 'text-sky-200 font-bold' : 'text-surface-300'}`}>
               ({totalCount})
             </span>
           )}
@@ -44,7 +44,7 @@ export default function CategoryChips({ categories, selected, onSelect, counts, 
             >
               <span className="truncate max-w-[180px]">{cat.name}</span>
               {count !== undefined && (
-                <span className="text-xs font-mono text-surface-400 opacity-80">
+                <span className={`text-xs font-mono ${isSelected ? 'text-sky-200 font-bold' : 'text-surface-300'}`}>
                   ({count})
                 </span>
               )}
@@ -56,7 +56,7 @@ export default function CategoryChips({ categories, selected, onSelect, counts, 
         {onManage && (
           <button
             onClick={onManage}
-            className="filter-tab text-sky-400 hover:text-white border border-dashed border-surface-700 hover:border-surface-600 flex items-center gap-1 shrink-0"
+            className="filter-tab text-sky-300 hover:text-white border border-dashed border-sky-500/50 hover:border-sky-400 hover:bg-sky-950/40 flex items-center gap-1 shrink-0 font-medium"
             title="Kelola & Tambah Kategori Baru"
           >
             <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>

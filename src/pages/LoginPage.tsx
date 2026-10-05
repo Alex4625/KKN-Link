@@ -45,11 +45,11 @@ export default function LoginPage() {
             <h1 className="text-xl font-bold text-surface-50 tracking-tight">
               KKN Hub
             </h1>
-            <span className="text-[11px] font-mono text-surface-400 px-1.5 py-0.5 rounded bg-surface-850 border border-surface-800">
+            <span className="text-[11px] font-mono text-surface-200 px-1.5 py-0.5 rounded bg-surface-800 border border-surface-700 font-medium">
               Desa Adat Bali
             </span>
           </div>
-          <p className="text-xs text-surface-400 leading-relaxed">
+          <p className="text-xs text-surface-300 leading-relaxed">
             Portal berkas, rundown kegiatan posko, dan akun kelompok bersama.
           </p>
         </div>
@@ -60,7 +60,7 @@ export default function LoginPage() {
             <div>
               <label
                 htmlFor="access-code"
-                className="block text-xs font-semibold text-surface-300 mb-1.5"
+                className="block text-xs font-bold text-surface-100 mb-1.5"
               >
                 Kode Akses Kelompok
               </label>
@@ -83,7 +83,7 @@ export default function LoginPage() {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-2.5 top-1/2 -translate-y-1/2 text-surface-400 hover:text-white p-1 rounded transition-colors"
+                  className="absolute right-2.5 top-1/2 -translate-y-1/2 text-surface-300 hover:text-white p-1 rounded transition-colors focus-visible:outline-2 focus-visible:outline-sky-400"
                   aria-label={showPassword ? 'Sembunyikan kode' : 'Lihat kode'}
                 >
                   {showPassword ? (
@@ -100,7 +100,7 @@ export default function LoginPage() {
               </div>
 
               {error && (
-                <p className="text-rose-400 text-xs mt-1.5 leading-snug">
+                <p className="text-rose-400 text-xs mt-1.5 font-medium leading-snug">
                   {error}
                 </p>
               )}
@@ -115,7 +115,7 @@ export default function LoginPage() {
             </button>
           </form>
 
-          <div className="mt-4 pt-3 border-t border-surface-800 text-[11px] text-surface-400 text-center leading-relaxed">
+          <div className="mt-4 pt-3 border-t border-surface-700 text-[11px] text-surface-300 text-center leading-relaxed">
             Kode akses dibagikan oleh Koordinator Posko atau Sekretaris Kelompok.
           </div>
         </div>

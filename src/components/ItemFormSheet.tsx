@@ -138,9 +138,9 @@ export default function ItemFormSheet({
       <div className="relative w-full max-w-lg bg-surface-900 border border-surface-700 rounded-lg shadow-2xl z-10 max-h-[90vh] overflow-y-auto animate-sheet">
         <form onSubmit={handleSubmit} className="p-5 sm:p-6 space-y-4">
           {/* Header */}
-          <div className="flex items-center justify-between pb-3 border-b border-surface-800">
+          <div className="flex items-center justify-between pb-3 border-b border-surface-700">
             <div>
-              <span className="text-[11px] font-mono uppercase tracking-wider text-surface-400 block">
+              <span className="text-[11px] font-mono uppercase tracking-wider text-surface-300 font-semibold block">
                 {editItem ? 'Edit Dokumen' : 'Dokumen Baru'}
               </span>
               <h2 className="text-base font-bold text-surface-100">
@@ -150,7 +150,7 @@ export default function ItemFormSheet({
             <button
               type="button"
               onClick={onClose}
-              className="w-7 h-7 rounded text-surface-400 hover:text-white hover:bg-surface-800 flex items-center justify-center transition-colors"
+              className="w-7 h-7 rounded text-surface-300 hover:text-white hover:bg-surface-700/60 flex items-center justify-center transition-colors"
               aria-label="Tutup"
             >
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -162,10 +162,10 @@ export default function ItemFormSheet({
           {/* Type Selector (New items only) */}
           {!editItem && (
             <div>
-              <label className="block text-xs font-semibold text-surface-300 mb-1.5">
+              <label className="block text-xs font-bold text-surface-100 mb-1.5">
                 Tipe Item
               </label>
-              <div className="grid grid-cols-3 gap-1.5 p-1 bg-surface-950 border border-surface-800 rounded">
+              <div className="grid grid-cols-3 gap-1.5 p-1 bg-surface-950 border border-surface-700 rounded">
                 {TYPE_OPTIONS.map((opt) => {
                   const isActive = form.type === opt.value;
                   return (
@@ -173,10 +173,10 @@ export default function ItemFormSheet({
                       key={opt.value}
                       type="button"
                       onClick={() => setForm((f) => ({ ...f, type: opt.value }))}
-                      className={`py-2 px-2 rounded text-xs font-medium text-center transition-colors ${
+                      className={`py-2 px-2 rounded text-xs text-center transition-colors ${
                         isActive
-                          ? 'bg-surface-800 text-white font-semibold shadow-xs'
-                          : 'text-surface-400 hover:text-surface-200'
+                          ? 'bg-surface-700 text-white font-bold shadow-xs'
+                          : 'text-surface-300 hover:text-white font-medium'
                       }`}
                     >
                       {opt.label}
@@ -189,7 +189,7 @@ export default function ItemFormSheet({
 
           {/* Title */}
           <div>
-            <label className="block text-xs font-semibold text-surface-300 mb-1.5">
+            <label className="block text-xs font-bold text-surface-100 mb-1.5">
               Judul Item <span className="text-rose-400">*</span>
             </label>
             <input
@@ -207,18 +207,18 @@ export default function ItemFormSheet({
               maxLength={100}
               autoFocus
             />
-            {errors.title && <p className="text-rose-400 text-xs mt-1">{errors.title}</p>}
+            {errors.title && <p className="text-rose-400 text-xs mt-1 font-medium">{errors.title}</p>}
           </div>
 
           {/* Category */}
           <div>
             <div className="flex items-center justify-between mb-1.5">
-              <label className="block text-xs font-semibold text-surface-300">
+              <label className="block text-xs font-bold text-surface-100">
                 Kategori
               </label>
               <a
                 href="/kategori"
-                className="text-[11px] text-sky-400 hover:text-sky-300 transition-colors flex items-center gap-1"
+                className="text-[11px] text-sky-300 hover:text-sky-100 font-medium transition-colors flex items-center gap-1"
                 title="Buka halaman kelola kategori"
               >
                 + Kelola / Tambah Kategori
@@ -242,7 +242,7 @@ export default function ItemFormSheet({
           {form.type === 'link' && (
             <div className="space-y-3">
               <div>
-                <label className="block text-xs font-semibold text-surface-300 mb-1.5">
+                <label className="block text-xs font-bold text-surface-100 mb-1.5">
                   Tautan URL <span className="text-rose-400">*</span>
                 </label>
                 <input
@@ -257,8 +257,8 @@ export default function ItemFormSheet({
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-surface-300 mb-1.5">
-                  Keterangan Singkat <span className="text-surface-500 font-normal">(opsional)</span>
+                <label className="block text-xs font-bold text-surface-100 mb-1.5">
+                  Keterangan Singkat <span className="text-surface-400 font-normal">(opsional)</span>
                 </label>
                 <input
                   type="text"
@@ -268,7 +268,7 @@ export default function ItemFormSheet({
                   placeholder="Catatan mengenai berkas atau kegunaan tautan"
                   maxLength={300}
                 />
-                {errors.description && <p className="text-rose-400 text-xs mt-1">{errors.description}</p>}
+                {errors.description && <p className="text-rose-400 text-xs mt-1 font-medium">{errors.description}</p>}
               </div>
             </div>
           )}
@@ -276,7 +276,7 @@ export default function ItemFormSheet({
           {/* Note Field */}
           {form.type === 'note' && (
             <div>
-              <label className="block text-xs font-semibold text-surface-300 mb-1.5">
+              <label className="block text-xs font-bold text-surface-100 mb-1.5">
                 Isi Catatan <span className="text-rose-400">*</span>
               </label>
               <textarea
@@ -287,7 +287,7 @@ export default function ItemFormSheet({
                 maxLength={5000}
                 rows={5}
               />
-              {errors.content && <p className="text-rose-400 text-xs mt-1">{errors.content}</p>}
+              {errors.content && <p className="text-rose-400 text-xs mt-1 font-medium">{errors.content}</p>}
             </div>
           )}
 
@@ -295,8 +295,8 @@ export default function ItemFormSheet({
           {form.type === 'secret' && (
             <div className="space-y-3">
               <div>
-                <label className="block text-xs font-semibold text-surface-300 mb-1.5">
-                  Username / ID / Email <span className="text-surface-500 font-normal">(opsional)</span>
+                <label className="block text-xs font-bold text-surface-100 mb-1.5">
+                  Username / ID / Email <span className="text-surface-400 font-normal">(opsional)</span>
                 </label>
                 <input
                   type="text"
@@ -306,13 +306,13 @@ export default function ItemFormSheet({
                   placeholder="admin.kkn@gmail.com atau @kkn_desa"
                   maxLength={200}
                 />
-                {errors.username && <p className="text-rose-400 text-xs mt-1">{errors.username}</p>}
+                {errors.username && <p className="text-rose-400 text-xs mt-1 font-medium">{errors.username}</p>}
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-surface-300 mb-1.5">
+                <label className="block text-xs font-bold text-surface-100 mb-1.5">
                   Password / Sandi
-                  {editItem && <span className="text-surface-500 font-normal ml-1">(kosongkan bila tetap)</span>}
+                  {editItem && <span className="text-surface-400 font-normal ml-1">(kosongkan bila tetap)</span>}
                   {!editItem && <span className="text-rose-400 ml-1">*</span>}
                 </label>
                 <input
@@ -323,13 +323,13 @@ export default function ItemFormSheet({
                   placeholder={editItem ? 'Biarkan kosong bila tidak diubah' : 'Kata sandi akun bersama'}
                   maxLength={500}
                 />
-                {errors.password && <p className="text-rose-400 text-xs mt-1">{errors.password}</p>}
+                {errors.password && <p className="text-rose-400 text-xs mt-1 font-medium">{errors.password}</p>}
               </div>
             </div>
           )}
 
           {/* Footer Actions */}
-          <div className="flex items-center justify-end gap-2 pt-3 border-t border-surface-800">
+          <div className="flex items-center justify-end gap-2 pt-3 border-t border-surface-700">
             <button
               type="button"
               onClick={onClose}

@@ -231,11 +231,11 @@ export default function HomePage() {
               <h1 className="text-lg font-bold text-surface-50 tracking-tight">
                 KKN Hub
               </h1>
-              <span className="text-[11px] font-mono text-surface-400 px-1.5 py-0.5 rounded bg-surface-850 border border-surface-800">
+              <span className="text-[11px] font-mono text-surface-200 px-1.5 py-0.5 rounded bg-surface-800 border border-surface-700 font-medium">
                 Desa Adat Bali
               </span>
             </div>
-            <p className="text-xs text-surface-400 mt-0.5">
+            <p className="text-xs text-surface-300 mt-0.5">
               Pusat dokumen, rundown kegiatan posko, & arsip kelompok
             </p>
           </div>
@@ -261,7 +261,7 @@ export default function HomePage() {
               className="btn-secondary text-xs"
               title="Kelola Kategori Berkas"
             >
-              <svg className="w-3.5 h-3.5 text-surface-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <svg className="w-3.5 h-3.5 text-surface-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M9.568 3H5.25A2.25 2.25 0 003 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 005.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 009.568 3z" />
                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 6h.008v.008H6V6z" />
               </svg>
@@ -270,7 +270,7 @@ export default function HomePage() {
 
             <button
               onClick={() => setLogoutConfirm(true)}
-              className="btn-ghost text-xs text-surface-400 hover:text-rose-300"
+              className="btn-ghost text-xs text-surface-300 hover:text-rose-300 hover:bg-rose-950/40"
               aria-label="Keluar dari sesi"
               title="Keluar"
             >
@@ -308,10 +308,10 @@ export default function HomePage() {
         {/* Empty State */}
         {!itemsLoading && filteredItems.length === 0 && (
           <div className="kkn-panel p-8 sm:p-12 max-w-lg mx-auto my-10 text-center">
-            <h2 className="text-sm font-semibold text-surface-200 mb-1">
+            <h2 className="text-base font-bold text-surface-100 mb-1.5">
               {search ? 'Tidak ada hasil yang cocok' : 'Belum ada berkas tersimpan'}
             </h2>
-            <p className="text-xs text-surface-400 mb-5 leading-relaxed">
+            <p className="text-xs text-surface-300 mb-5 leading-relaxed">
               {search
                 ? `Tidak ditemukan dokumen atau catatan dengan kata kunci "${search}".`
                 : 'Mulai kumpulkan link Google Drive, rundown kegiatan desa, dan kontak darurat kelompok di sini.'}
@@ -338,9 +338,9 @@ export default function HomePage() {
         {/* Pinned Section */}
         {pinnedItems.length > 0 && (
           <section className="mb-8">
-            <div className="flex items-center gap-2 mb-3 pb-1 border-b border-surface-800">
-              <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
-              <h2 className="text-xs font-bold uppercase tracking-wider text-amber-500 font-mono">
+            <div className="flex items-center gap-2 mb-3 pb-1 border-b border-surface-700">
+              <span className="w-2 h-2 rounded-full bg-amber-400" />
+              <h2 className="text-xs font-bold uppercase tracking-wider text-amber-400 font-mono">
                 Disematkan Utama ({pinnedItems.length})
               </h2>
             </div>
@@ -357,8 +357,8 @@ export default function HomePage() {
             key={group.category?.id || 'uncategorized'}
             className="mb-8"
           >
-            <div className="flex items-center justify-between mb-3 pb-1 border-b border-surface-800">
-              <h2 className="text-xs font-bold uppercase tracking-wider text-surface-300 font-mono">
+            <div className="flex items-center justify-between mb-3 pb-1 border-b border-surface-700">
+              <h2 className="text-xs font-bold uppercase tracking-wider text-surface-200 font-mono">
                 {group.category?.name || 'Dokumen Lainnya'} ({group.items.length})
               </h2>
             </div>

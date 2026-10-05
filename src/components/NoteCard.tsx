@@ -38,7 +38,7 @@ export default function NoteCard({ item, onEdit, onTogglePin, onDelete }: NoteCa
         {/* Baris Atas: Judul Catatan & Menu */}
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0 flex-1">
-            <h3 className="text-sm font-semibold text-surface-100 leading-snug">
+            <h3 className="text-sm font-bold text-surface-50 leading-snug">
               {item.title}
             </h3>
           </div>
@@ -52,9 +52,9 @@ export default function NoteCard({ item, onEdit, onTogglePin, onDelete }: NoteCa
         </div>
 
         {/* Isi Catatan dengan Format Rapi */}
-        <div className="mt-2.5 pt-2 border-t border-surface-850">
+        <div className="mt-2.5 pt-2 border-t border-surface-700/80">
           <p
-            className={`text-xs text-surface-300 whitespace-pre-wrap font-sans leading-relaxed ${
+            className={`text-xs text-surface-200 whitespace-pre-wrap font-sans leading-relaxed ${
               !expanded && isLong ? 'line-clamp-4' : ''
             }`}
           >
@@ -65,15 +65,15 @@ export default function NoteCard({ item, onEdit, onTogglePin, onDelete }: NoteCa
             <button
               type="button"
               onClick={() => setExpanded(!expanded)}
-              className="text-bali-gold text-xs font-medium mt-2 hover:underline inline-flex items-center gap-1"
+              className="text-amber-400 hover:text-amber-300 text-xs font-bold mt-2 hover:underline inline-flex items-center gap-1 py-0.5"
             >
               <span>{expanded ? 'Tampilkan ringkas' : 'Baca selengkapnya'}</span>
               <svg
-                className={`w-3 h-3 transition-transform duration-150 ${expanded ? 'rotate-180' : ''}`}
+                className={`w-3.5 h-3.5 transition-transform duration-150 ${expanded ? 'rotate-180' : ''}`}
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
-                strokeWidth={2}
+                strokeWidth={2.5}
               >
                 <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
               </svg>
@@ -83,18 +83,18 @@ export default function NoteCard({ item, onEdit, onTogglePin, onDelete }: NoteCa
       </div>
 
       {/* Baris Bawah: Tombol Salin Isi */}
-      <div className="pt-2 border-t border-surface-850 flex items-center justify-between text-xs text-surface-400">
-        <span className="text-[11px] font-mono text-surface-500">Catatan Posko</span>
+      <div className="pt-2.5 border-t border-surface-700/80 flex items-center justify-between text-xs text-surface-300">
+        <span className="text-[11px] font-mono text-surface-300 px-1.5 py-0.5 bg-surface-800 rounded border border-surface-700">Catatan Posko</span>
         <button
           type="button"
           onClick={handleCopy}
-          className="text-surface-400 hover:text-surface-200 transition-colors inline-flex items-center gap-1 py-1 px-1.5 rounded hover:bg-surface-850"
+          className="text-surface-300 hover:text-white transition-colors inline-flex items-center gap-1.5 py-1 px-2 rounded hover:bg-surface-800 border border-transparent hover:border-surface-600"
           title="Salin isi catatan"
         >
           <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 01-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 011.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 00-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 01-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 00-3.375-3.375h-1.5a1.125 1.125 0 01-1.125-1.125v-1.5a3.375 3.375 0 00-3.375-3.375H9.75" />
           </svg>
-          <span>{copied ? 'Tersalin' : 'Salin Catatan'}</span>
+          <span className="font-medium">{copied ? 'Tersalin!' : 'Salin Catatan'}</span>
         </button>
       </div>
     </div>

@@ -23,7 +23,7 @@ function AuthGuard({ children }: { children: React.ReactNode }) {
             <div className="w-10 h-10 rounded-full border-2 border-sky-500/20 border-t-sky-400 animate-spin" />
             <div className="absolute inset-0 rounded-full bg-sky-500/10 blur-sm pointer-events-none" />
           </div>
-          <span className="text-xs font-semibold uppercase tracking-widest text-surface-400 font-mono">
+          <span className="text-xs font-semibold uppercase tracking-widest text-surface-200 font-mono">
             Memuat KKN Hub...
           </span>
         </div>

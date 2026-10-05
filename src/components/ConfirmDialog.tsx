@@ -44,7 +44,7 @@ export default function ConfirmDialog({
           {title}
         </h3>
 
-        <p className="text-xs text-surface-400 leading-relaxed mb-5">
+        <p className="text-xs text-surface-200 leading-relaxed mb-5">
           {message}
         </p>
 
