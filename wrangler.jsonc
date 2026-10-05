@@ -4,6 +4,11 @@
   "main": "server/app.ts",
   "compatibility_date": "2024-09-23",
   "compatibility_flags": ["nodejs_compat"],
+  "vars": {
+    "ACCESS_CODE": "test123",
+    "SESSION_SECRET": "pCWCQrfBRBTh4j0Bf0RTgSJgoGco/BCtOtrS4nWuVOA=",
+    "SECRET_ENC_KEY": "DUhSm6AbRTObI3v6LMPaP1vXTVhJTAUKyDJCyGrP6YI="
+  },
   "assets": {
     "directory": "./dist",
     "binding": "ASSETS",
