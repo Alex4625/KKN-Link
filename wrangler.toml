@@ -7,4 +7,4 @@ compatibility_flags = ["nodejs_compat"]
 [[d1_databases]]
 binding = "DB"
 database_name = "kkn-hub-db"
-database_id = "REPLACE_WITH_YOUR_D1_DATABASE_ID"
+database_id = "d4551c5d-7d4a-462f-b4b3-8119ccaefb22"
